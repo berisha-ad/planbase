@@ -11,19 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 10)->nullable(false);
+            $table->string('name', 50)->nullable(false);
+            $table->string('email')->unique()->nullable(true);
+            $table->string('phone', 15)->nullable(true);
+            $table->string('website')->nullable(true);
             $table->string('description')->nullable(false);
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
-            $table->foreignId('project_id')->constrained('projects')
-                ->onDelete('cascade');
+            $table->string('address')->nullable(false);
+            $table->string('city')->nullable(false);
+            $table->string('zip_code', 10)->nullable(false);
             $table->foreignId('upload_id')
                 ->nullable()
                 ->constrained('uploads')
                 ->onDelete('set null');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -34,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        //
     }
 };

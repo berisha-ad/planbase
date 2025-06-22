@@ -15,10 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->string('phone')->unique()->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->text('bio')->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->enum('role', ['admin', 'employee'])->default('admin');
+            $table->foreignId('upload_id')
+                ->nullable()
+                ->constrained('uploads')
+                ->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
         });
