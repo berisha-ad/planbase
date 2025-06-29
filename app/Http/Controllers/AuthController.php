@@ -12,12 +12,16 @@ class AuthController extends Controller
     public function register(Request $request): JsonResponse
     {
         $data = $request->validate([
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
             'username' => 'required|string|max:50|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
 
         $user = User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

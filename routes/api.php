@@ -15,6 +15,8 @@ use App\Http\Controllers\PostController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 
@@ -42,16 +44,16 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware(['auth:sanctum', AdminMiddleware::class])->group( function () {
     Route::get('/companies', [CompanyController::class, 'index']);
     Route::post('/companies', [CompanyController::class, 'store']);
-    Route::put('/companies/{company}', [CompanyController::class, 'update']);
+    Route::patch('/companies/{company}', [CompanyController::class, 'update']);
     Route::delete('/companies/{company}', [CompanyController::class, 'destroy']);
     Route::post('/companies/{company}/users', [UserController::class, 'store']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::patch('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::post('/companies/{company}/projects', [ProjectController::class, 'store']);
-    Route::put('/projects/{project}', [ProjectController::class, 'update']);
+    Route::patch('/projects/{project}', [ProjectController::class, 'update']);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
     Route::post('/projects/{project}/assign-users', [ProjectController::class, 'assignUsers']);
     Route::patch('/projects/{project}/complete', [ProjectController::class, 'markAsComplete']);
-    Route::put('/posts/{post}', [PostController::class, 'update']);
+    Route::patch('/posts/{post}', [PostController::class, 'update']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 });

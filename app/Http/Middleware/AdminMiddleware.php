@@ -16,6 +16,10 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user() && $request->user()->role === 'admin') {
+            info('AdminMiddleware: User is an admin.', [
+                'user_id' => $request->user()->id,
+                'role' => $request->user()->role,
+            ]);
             return $next($request);
         }
 
